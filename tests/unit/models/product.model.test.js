@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const { allProductsResponse } = require('../../../__tests__/_dataMock');
-const productModel = require('../../../src/models/product.model');
+const { productModel } = require('../../../src/models/index');
 
 describe('Model de produtos', () => {
   describe('Listar todos os produtos', () => {
@@ -15,7 +15,7 @@ describe('Model de produtos', () => {
       const result = await productModel.modelGetAll();
 
       expect(result).to.be.a('array');
-      expect(result).to.be.equal(allProductsResponse);
+      expect(result).to.be.deep.equal(allProductsResponse);
     });
 
     afterEach(() => {
