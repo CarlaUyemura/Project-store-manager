@@ -19,7 +19,13 @@ const serviceGetById = async (productId) => {
   return { message: result, status: statusCode.OK };
 };
 
+const serviceInsertProduct = async (product) => {
+  const result = await productModel.modelInsertProduct(product.name);
+  return { message: result, status: statusCode.okInsert };
+};
+
 module.exports = {
   serviceGetAll,
   serviceGetById,
+  serviceInsertProduct,
 };
