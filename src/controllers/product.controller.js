@@ -8,7 +8,6 @@ const controllerGetAll = async (_req, res) => {
 const controllerGetById = async (req, res) => {
   const productId = req.params;
   const { status, message } = await productService.serviceGetById(productId);
-  console.log(message);
   res.status(status).json(message);
 };
 

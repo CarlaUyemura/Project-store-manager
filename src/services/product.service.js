@@ -12,10 +12,11 @@ const serviceGetAll = async () => {
 
 const serviceGetById = async (productId) => { 
   const result = await productModel.modelGetById(productId);
-  if (result) {
-    return { message: result, status: statusCode.OK };
+  if (!result) {
+    const error = { message: errorMessages.notFoundProduct };
+    return { message: error, status: statusCode.BadRequest };
   }
-  return { message: errorMessages.notFoundProduct, status: statusCode.BadRequest };
+  return { message: result, status: statusCode.OK };
 };
 
 module.exports = {

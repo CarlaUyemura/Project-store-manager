@@ -22,4 +22,5 @@ describe('Model de produtos', () => {
       sinon.restore();
     });
   });
+  describe('Listar todos os produtos', () => { })
 });

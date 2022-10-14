@@ -12,9 +12,8 @@ const modelGetById = async (productId) => {
   const [[result]] = await connection.execute(
     'SELECT * FROM products WHERE id = ?',
     [productId.id],
-
   );
-  return camelize(result);
+  return result;
 };
 
 module.exports = {
