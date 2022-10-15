@@ -1,6 +1,7 @@
 const productModel = require('../models/product.model');
 const errorMessages = require('../helpers/errorMessages');
 const statusCode = require('../helpers/statusCode');
+const { validateName } = require('./validation/validation');
 
 const serviceGetAll = async () => { 
   const result = await productModel.modelGetAll();
@@ -20,8 +21,16 @@ const serviceGetById = async (productId) => {
 };
 
 const serviceInsertProduct = async (product) => {
+  const error = await validateName(product);
+
+  if (error) {
+    console.log(error);
+    return error;
+  }
+
   const result = await productModel.modelInsertProduct(product.name);
-  return { message: result, status: statusCode.okInsert };
+  const obj = { id: result, name: product.name };
+  return { message: obj, status: statusCode.OkInsert };
 };
 
 module.exports = {

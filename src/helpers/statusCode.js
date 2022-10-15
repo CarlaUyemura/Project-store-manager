@@ -1,5 +1,7 @@
 module.exports = {
   OK: 200,
-  okInsert: 201,
+  OkInsert: 201,
   BadRequest: 404,
+  InvalidName: 400,
+  ShortName: 422,
 };

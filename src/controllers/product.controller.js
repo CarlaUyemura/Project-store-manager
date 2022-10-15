@@ -14,8 +14,7 @@ const controllerGetById = async (req, res) => {
 const controllerInsertProduct = async (req, res) => {
   const product = req.body;
   const { status, message } = await productService.serviceInsertProduct(product);
-  const obj = { id: message, name: product.name };
-  res.status(status).json(obj);
+  res.status(status).json(message);
 };
 
 module.exports = {
