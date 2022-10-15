@@ -4,4 +4,5 @@ module.exports = {
   BadRequest: 404,
   InvalidName: 400,
   ShortName: 422,
+  OkDelete: 204,
 };

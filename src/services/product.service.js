@@ -38,11 +38,18 @@ const serviceUpdateProduct = async (productId, name) => {
 
   if (error) return error;
   const result = await productModel.modelUpdateProduct(productId.id, name.name);
-  
+
   if (result) {
     const obj = { id: productId.id, name: name.name };
     return { message: obj, status: statusCode.OK };
   }
+};
+
+const serviceDeleteProduct = async (id) => {
+    const verifyId = await serviceGetById(id);
+  if (verifyId.status === 404) return verifyId;
+  await productModel.modelDeleteProduct(id);
+  return { status: statusCode.OkDelete };
 };
 
 module.exports = {
@@ -50,4 +57,5 @@ module.exports = {
   serviceGetById,
   serviceInsertProduct,
   serviceUpdateProduct,
+  serviceDeleteProduct,
 };

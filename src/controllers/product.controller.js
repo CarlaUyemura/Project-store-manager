@@ -24,9 +24,16 @@ const controllerUpdateProduct = async (req, res) => {
   res.status(status).json(message);
 };
 
+const controllerDeleteProduct = async (req, res) => {
+  const id = req.params;
+  const { status, message } = await productService.serviceDeleteProduct(id);
+  res.status(status).json(message);
+};
+
 module.exports = {
   controllerGetAll,
   controllerGetById,
   controllerInsertProduct,
   controllerUpdateProduct,
+  controllerDeleteProduct,
 };

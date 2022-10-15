@@ -31,10 +31,19 @@ const modelUpdateProduct = async (id, name) => {
  );
     return result;
 };
+
+const modelDeleteProduct = async ({ id }) => {
+  const [result] = await connection.execute(
+    'DELETE FROM products WHERE id = ?',
+    [id],
+  );
+  return result;
+};
   
 module.exports = {
   modelGetAll,
   modelGetById,
   modelInsertProduct,
   modelUpdateProduct,
+  modelDeleteProduct,
 };
