@@ -12,7 +12,7 @@ const modelGetById = async (productId) => {
   const [[result]] = await connection.execute(
     'SELECT * FROM products WHERE id = ?',
     [productId.id],
-  );
+    );
   return result;
 };
 
@@ -24,8 +24,17 @@ const modelInsertProduct = async (product) => {
   return insertId;
 };
 
+const modelUpdateProduct = async (id, name) => {
+ const [result] = await connection.execute(
+    'UPDATE products SET name = ? WHERE id = ?',
+    [name, id],
+ );
+    return result;
+};
+  
 module.exports = {
   modelGetAll,
   modelGetById,
   modelInsertProduct,
+  modelUpdateProduct,
 };

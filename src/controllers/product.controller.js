@@ -17,8 +17,16 @@ const controllerInsertProduct = async (req, res) => {
   res.status(status).json(message);
 };
 
+const controllerUpdateProduct = async (req, res) => {
+  const product = req.body;
+  const id = req.params;
+  const { status, message } = await productService.serviceUpdateProduct(id, product);
+  res.status(status).json(message);
+};
+
 module.exports = {
   controllerGetAll,
   controllerGetById,
   controllerInsertProduct,
+  controllerUpdateProduct,
 };
