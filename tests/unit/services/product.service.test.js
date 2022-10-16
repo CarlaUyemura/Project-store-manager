@@ -1,6 +1,13 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const { allProductsResponse, productSearchNameResponse, wrongSizeProductBody, wrongProductBody, productUpdateExistsNameBody, productUpdateBody } = require('../../../__tests__/_dataMock');
+const {
+  allProductsResponse,
+  productSearchNameResponse,
+  wrongSizeProductBody,
+  wrongProductBody,
+  productUpdateExistsNameBody,
+  productUpdateBody
+} = require('../../../__tests__/_dataMock');
 const { productModel } = require('../../../src/models/index');
 const { productService } = require('../../../src/services/index'); 
 const errorMessages = require('../../../src/helpers/errorMessages'); 
@@ -30,9 +37,9 @@ describe('Service de produtos', () => {
       expect(result.message).to.be.equal(allProductsResponse);
     });
 
-    afterEach(() => {
-      sinon.restore();
-    });
+      afterEach(() => {
+        sinon.restore();
+      });
     
     it('Verifica se retornar erro quando falha o retorno', async () => {
       sinon.stub(productModel, 'modelGetAll').resolves(undefined);
@@ -58,7 +65,7 @@ describe('Service de produtos', () => {
       sinon.restore();
       });
     
-     it('Verifica se retorna o produto se passado um id que válido', async () => {
+    it('Verifica se retorna o produto se passado um id que válido', async () => {
       sinon.stub(productModel, 'modelGetById').resolves(productSearchNameResponse[0]);
 
        const result = await productService.serviceGetById(1);
@@ -68,7 +75,7 @@ describe('Service de produtos', () => {
     });
   });
 
-   describe('Inserir um produto', () => {
+  describe('Inserir um produto', () => {
     it('Verifica se retorna o erro se passado o nome com menos de 5 caracteres', async () => {
       const result = await productService.serviceInsertProduct(wrongSizeProductBody);
 
@@ -80,19 +87,19 @@ describe('Service de produtos', () => {
       sinon.restore();
       });
     
-     it('Verifica se retorna o erro se não passar o nome', async () => {
+    it('Verifica se retorna o erro se não passar o nome', async () => {
       const result = await productService.serviceInsertProduct(wrongProductBody);
 
       expect(result).to.be.a('object');
       expect(result.message).to.be.deep.equal({ message: errorMessages.invalidName });
       expect(result.status).to.but.equal(statusCode.InvalidName);
-     });
+    });
      
      afterEach(() => {
       sinon.restore();
-     });
+      });
 
-     it('Verifica se retorna o produto com sucesso', async () => {
+    it('Verifica se retorna o produto com sucesso', async () => {
       sinon.stub(productModel, 'modelInsertProduct').resolves(1);
 
       const result = await productService.serviceInsertProduct(productUpdateExistsNameBody);
@@ -102,7 +109,7 @@ describe('Service de produtos', () => {
      });
    });
   
-   describe('Update de um produto', () => {
+  describe('Update de um produto', () => {
     it('Verifica se retorna o erro se passado um id inválido', async () => {
       const result = await productService.serviceUpdateProduct({id: 6}, wrongSizeProductBody);
 
@@ -110,8 +117,8 @@ describe('Service de produtos', () => {
       expect(result.status).to.but.equal(statusCode.BadRequest);
     });
 
-    afterEach(() => {
-    sinon.restore();
+      afterEach(() => {
+      sinon.restore();
       });
     it('Verifica se retorna o erro se passado um nome com menos de 5 caracteres e um id válido', async () => {
       sinon.stub(productModel, 'modelGetById').resolves(productSearchNameResponse[0]);
@@ -122,11 +129,11 @@ describe('Service de produtos', () => {
       expect(result.status).to.but.equal(statusCode.ShortName);
     });
      
-     afterEach(() => {
+      afterEach(() => {
       sinon.restore();
      });
 
-  it('Verifica se atualiza o produto com sucesso', async () => {
+    it('Verifica se atualiza o produto com sucesso', async () => {
     sinon.stub(productModel, 'modelGetById').resolves(productSearchNameResponse[0]);
     sinon.stub(productModel, 'modelUpdateProduct').resolves({ id: 1, ...productUpdateBody });
     
@@ -136,26 +143,26 @@ describe('Service de produtos', () => {
       expect(result.status).to.but.equal(statusCode.OK);
     });
    
-     describe('Delete de um produto', () => {
-       it('Verifica se retorna o erro se passado um id inválido', async () => {
-         const result = await productService.serviceDeleteProduct({ id: 6 });
+  describe('Delete de um produto', () => {
+    it('Verifica se retorna o erro se passado um id inválido', async () => {
+      const result = await productService.serviceDeleteProduct({ id: 6 });
 
-         expect(result.message).to.be.deep.equal({ message: errorMessages.notFoundProduct });
-         expect(result.status).to.but.equal(statusCode.BadRequest);
-       });
+      expect(result.message).to.be.deep.equal({ message: errorMessages.notFoundProduct });
+      expect(result.status).to.but.equal(statusCode.BadRequest);
+    });
 
-       afterEach(() => {
-         sinon.restore();
-       });
+      afterEach(() => {
+      sinon.restore();
+      });
 
     it('Verifica se deleta o produto com sucesso', async () => {
       sinon.stub(productModel, 'modelGetById').resolves(productSearchNameResponse[0]);
       sinon.stub(productModel, 'modelDeleteProduct').resolves(mockReturnDB);
           
-       const result = await productService.serviceDeleteProduct({ id: 1 });
-      console.log(result);
+      const result = await productService.serviceDeleteProduct({ id: 1 });
+
       expect(result.status).to.be.equal(statusCode.OkDelete);
-    });
+      });
      });
    });
 });
