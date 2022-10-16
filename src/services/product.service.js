@@ -37,6 +37,7 @@ const serviceUpdateProduct = async (productId, name) => {
   const error = await validateName(name);
 
   if (error) return error;
+  
   const result = await productModel.modelUpdateProduct(productId.id, name.name);
 
   if (result) {
