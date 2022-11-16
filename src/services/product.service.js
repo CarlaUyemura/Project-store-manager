@@ -1,7 +1,7 @@
 const productModel = require('../models/product.model');
 const errorMessages = require('../helpers/errorMessages');
 const statusCode = require('../helpers/statusCode');
-const { validateName } = require('./validation/validation');
+const { validateName } = require('./validation/validationProduct');
 
 const serviceGetAll = async () => { 
   const result = await productModel.modelGetAll();
